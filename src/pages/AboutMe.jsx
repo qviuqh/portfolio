@@ -1,4 +1,6 @@
 import Layout from '../components/Layout.jsx'
+import TechnologyMarquee from '../components/TechnologyMarquee.jsx'
+import profileImage from '../../assets/Qvinh-01-01.svg'
 
 const EXPERIENCE = [
   {
@@ -39,13 +41,17 @@ const PROJECTS = [
   },
 ]
 
-function SectionLabel({ index, children }) {
+function SectionLabel({ children }) {
   return (
-    <div className="flex items-center justify-between gap-6 mb-7 md:mb-10">
-      <p className="text-[9px] md:text-xs tracking-[0.2em] uppercase text-accent font-semibold">
-        {children}
-      </p>
-      <span className="text-[9px] md:text-xs tracking-[0.2em] text-gray-400">{index}</span>
+    <div
+      data-reveal
+      className="flex w-full items-start sm:items-center gap-3 sm:gap-5 md:gap-7 mb-8 sm:mb-10 md:mb-12"
+    >
+      <h2 className="shrink-0 text-[clamp(2rem,9vw,3rem)] md:text-[clamp(3rem,5vw,4rem)] lg:text-[clamp(3.5rem,4.5vw,4.5rem)] font-black uppercase leading-[0.85] tracking-[-0.055em] text-foreground">
+        <span className="text-accent">.</span>{children}
+      </h2>
+
+      <span aria-hidden="true" className="hidden sm:block h-px flex-1 bg-foreground/15" />
     </div>
   )
 }
@@ -54,21 +60,20 @@ export default function AboutMe() {
   return (
     <Layout>
       <main
-        className="flex-grow flex flex-col items-center w-full my-12 md:my-16 animate-fade-in z-10 relative"
-        style={{ animationDelay: '0.4s', opacity: 0 }}
+        className="flex-grow flex flex-col items-center w-full my-10 sm:my-12 md:my-16 z-10 relative"
       >
-        <section className="w-full max-w-[90vw] lg:max-w-[75vw] min-h-[58vh] flex flex-col justify-center">
+        <section data-reveal className="w-full lg:w-[75vw] max-w-[1440px] min-h-[50svh] sm:min-h-[58svh] flex flex-col justify-center">
           <p className="text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-400 mb-2 md:mb-4">
             Quang Vinh&apos;s Portfolio
           </p>
 
           <div className="text-left flex flex-col leading-[0.85] tracking-tighter">
-            <h1 className="text-[13vw] lg:text-[11vw] font-black uppercase text-foreground">
+            <h1 className="text-[clamp(2.5rem,13vw,11rem)] lg:text-[clamp(5rem,11vw,11rem)] font-black uppercase text-foreground whitespace-nowrap">
               MORE THAN
             </h1>
 
             <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-6 lg:gap-x-8 pl-[5vw] lg:pl-[8vw]">
-              <span className="text-[14vw] lg:text-[11vw] font-serif lowercase tracking-normal text-foreground">
+              <span className="text-[clamp(2.7rem,14vw,11rem)] lg:text-[clamp(5rem,11vw,11rem)] font-serif lowercase tracking-normal text-foreground whitespace-nowrap">
                 <span className="italic">just models</span>
                 <span className="text-accent">.</span>
               </span>
@@ -76,17 +81,24 @@ export default function AboutMe() {
           </div>
         </section>
 
-        <section className="w-full max-w-[90vw] lg:max-w-[75vw] border-t border-foreground/10 py-12 md:py-20">
-          <SectionLabel index="00">Profile</SectionLabel>
+        <section className="w-full lg:w-[75vw] max-w-[1440px] py-10 sm:py-12 md:py-20">
+          <SectionLabel>Profile</SectionLabel>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
-            <h2 className="md:col-span-4 font-serif italic text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-foreground">
-              AI built for the real world<span className="text-accent">.</span>
-            </h2>
+          <div data-reveal className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-10 items-end">
+            <figure className="md:col-span-4 mx-auto md:mx-0">
+              <img
+                src={profileImage}
+                alt="Quang Vinh"
+                className="block w-full max-w-sm md:max-w-none h-auto"
+              />
+            </figure>
 
-            <div className="md:col-start-6 md:col-span-7 space-y-5 text-sm md:text-base leading-relaxed text-gray-600">
+            <div className="md:col-start-4.5 md:col-span-8 space-y-5 text-sm md:text-base leading-relaxed text-gray-600">
+              <p className="font-serif font-bold italic text-accent text-2xl md:text-3xl lg:text-4xl">
+                Hi there,
+              </p>
               <p>
-                Hi there, I&apos;m Quang Vinh, an AI Engineer based in Hanoi with more than one
+                I&apos;m <span className="font-serif font-bold">Quang Vinh</span>, an AI Engineer based in Hanoi with more than one
                 year of experience building practical AI products that go beyond experimental
                 demos.
               </p>
@@ -105,21 +117,21 @@ export default function AboutMe() {
           </div>
         </section>
 
-        <section className="w-full max-w-[90vw] lg:max-w-[75vw] border-t border-foreground/10 py-12 md:py-20">
-          <SectionLabel index="01">Education</SectionLabel>
+        <section className="w-full lg:w-[75vw] max-w-[1440px] py-8 sm:py-10 md:py-16">
+          <SectionLabel>Education</SectionLabel>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
-            <div className="md:col-span-4">
-              <p className="text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-400">
-                2022 — 2026
+          <div data-reveal className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
+            <div className="md:col-span-3 py-3">
+              <p className="text-sm md:text-base tracking-[0.2em] uppercase font-bold leading-snug">
+                <span className="highlight">2022 - 2026</span>
               </p>
             </div>
 
-            <div className="md:col-span-8">
-              <h2 className="font-serif italic text-3xl md:text-4xl lg:text-5xl leading-tight text-foreground">
+            <div className="md:col-span-9 min-w-0">
+              <h3 className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-tight text-foreground break-words">
                 National Economics University
-              </h2>
-              <p className="mt-2 text-[9px] md:text-xs tracking-[0.2em] uppercase text-accent font-semibold">
+              </h3>
+              <p className="mt-3 md:mt-4 md:col-span-4 text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-700">
                 Bachelor of Data Science in Economics and Business
               </p>
 
@@ -140,22 +152,23 @@ export default function AboutMe() {
           </div>
         </section>
 
-        <section className="w-full max-w-[90vw] lg:max-w-[75vw] border-t border-foreground/10 py-12 md:py-20">
-          <SectionLabel index="02">Experience</SectionLabel>
+        <section className="w-full lg:w-[75vw] max-w-[1440px] py-8 sm:py-10 md:py-16">
+          <SectionLabel>Experience</SectionLabel>
 
           <div className="flex flex-col">
             {EXPERIENCE.map((item) => (
               <article
                 key={item.company}
-                className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-10 py-7 md:py-9 border-t border-foreground/10 first:border-t-0 first:pt-0"
+                data-reveal
+                className="relative grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-10 py-4 md:py-5 first:pt-0 before:absolute before:inset-x-0 before:top-0 before:h-px before:content-[''] before:bg-gradient-to-r before:from-transparent before:via-foreground/15 before:to-transparent first:before:hidden"
               >
-                <p className="md:col-span-4 text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-400">
-                  {item.role}
-                </p>
-                <div className="md:col-span-8">
-                  <h3 className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-tight text-foreground">
+                <div className="md:col-span-8 min-w-0">
+                  <h3 className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-tight text-foreground break-words">
                     {item.company}
                   </h3>
+                  <p className="mt-3 md:mt-4 md:col-span-4 text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-700">
+                    {item.role}
+                  </p>
                   <p className="mt-4 max-w-3xl text-xs md:text-sm leading-relaxed text-gray-600">
                     {item.description}
                   </p>
@@ -165,21 +178,18 @@ export default function AboutMe() {
           </div>
         </section>
 
-        <section className="w-full max-w-[90vw] lg:max-w-[75vw] border-y border-foreground/10 py-12 md:py-20 mb-12 md:mb-20">
-          <SectionLabel index="03">Selected Projects</SectionLabel>
+        <section className="w-full lg:w-[75vw] max-w-[1440px] py-8 sm:py-10 md:py-16 mb-8 sm:mb-10 md:mb-16">
+          <SectionLabel>Projects</SectionLabel>
 
           <div className="flex flex-col">
             {PROJECTS.map((project) => (
               <article
                 key={project.number}
-                className="group grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-10 py-7 md:py-9 border-t border-foreground/10 first:border-t-0 first:pt-0"
+                data-reveal
+                className="group relative grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 py-4 md:py-5 first:pt-0 before:absolute before:inset-x-0 before:top-0 before:h-px before:content-[''] before:bg-gradient-to-r before:from-transparent before:via-foreground/15 before:to-transparent first:before:hidden"
               >
-                <span className="md:col-span-1 text-[9px] md:text-xs tracking-[0.2em] text-gray-400">
-                  /{project.number}
-                </span>
-
-                <div className="md:col-span-4">
-                  <h3 className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-tight text-foreground group-hover:text-accent transition-colors">
+                <div className="md:col-span-6 min-w-0">
+                  <h3 className="font-serif italic text-2xl md:text-3xl lg:text-4xl leading-tight text-foreground break-words group-hover:text-accent transition-colors">
                     {project.title}
                   </h3>
                   <p className="mt-2 text-[9px] md:text-[10px] tracking-[0.16em] uppercase text-gray-400 leading-relaxed">
@@ -187,7 +197,7 @@ export default function AboutMe() {
                   </p>
                 </div>
 
-                <p className="md:col-start-7 md:col-span-6 text-xs md:text-sm leading-relaxed text-gray-600">
+                <p className="md:col-start-7 md:col-span-8 text-xs md:text-sm leading-relaxed text-gray-600">
                   {project.description}
                 </p>
               </article>
@@ -195,6 +205,7 @@ export default function AboutMe() {
           </div>
         </section>
       </main>
+      <TechnologyMarquee />
     </Layout>
   )
 }

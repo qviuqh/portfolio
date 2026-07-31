@@ -27,23 +27,22 @@ export default function AboutUs() {
       }
     >
       <main
-        className="flex-grow flex flex-col justify-center items-center w-full my-12 animate-fade-in z-10 relative"
-        style={{ animationDelay: '0.4s', opacity: 0 }}
+        className="flex-grow flex flex-col justify-center items-center w-full my-10 sm:my-12 md:my-16 z-10 relative"
       >
         {/* Micro text above main headline */}
-        <div className="w-full max-w-[90vw] lg:max-w-[75vw] text-left mb-2 md:mb-4">
+        <div data-reveal className="w-full lg:w-[75vw] max-w-[1440px] text-left mb-2 md:mb-4">
           <p className="text-[9px] md:text-xs tracking-[0.2em] uppercase text-gray-400">
             Who We Are
           </p>
         </div>
 
         {/* Massive Typography Block */}
-        <div className="w-full max-w-[90vw] lg:max-w-[75vw] text-left flex flex-col leading-[0.85] tracking-tighter mb-10 md:mb-16">
-          <h1 className="text-[13vw] lg:text-[11vw] font-black uppercase text-foreground">
+        <div data-reveal style={{ '--reveal-delay': '80ms' }} className="w-full lg:w-[75vw] max-w-[1440px] text-left flex flex-col leading-[0.85] tracking-tighter mb-10 md:mb-16">
+          <h1 className="text-[clamp(2.5rem,13vw,11rem)] lg:text-[clamp(5rem,11vw,11rem)] font-black uppercase text-foreground whitespace-nowrap">
             BUILT WITH
           </h1>
           <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-6 lg:gap-x-8 pl-[5vw] lg:pl-[8vw]">
-            <span className="text-[14vw] lg:text-[11vw] font-serif lowercase tracking-normal text-foreground">
+            <span className="text-[clamp(2.7rem,14vw,11rem)] lg:text-[clamp(5rem,11vw,11rem)] font-serif lowercase tracking-normal text-foreground whitespace-nowrap">
               <span className="italic">good people</span>
               <span className="text-accent">.</span>
             </span>
@@ -51,9 +50,14 @@ export default function AboutUs() {
         </div>
 
         {/* Values grid */}
-        <div className="w-full max-w-[90vw] lg:max-w-[75vw] grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 border-t border-foreground/10 pt-8">
-          {VALUES.map((v) => (
-            <div key={v.label} className="flex flex-col gap-2">
+        <div className="w-full lg:w-[75vw] max-w-[1440px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-10 border-t border-foreground/10 pt-8">
+          {VALUES.map((v, index) => (
+            <div
+              key={v.label}
+              data-reveal
+              style={{ '--reveal-delay': `${index * 80}ms` }}
+              className="flex flex-col gap-2"
+            >
               <span className="text-[9px] md:text-xs tracking-[0.2em] uppercase text-accent font-semibold">
                 {v.label}
               </span>

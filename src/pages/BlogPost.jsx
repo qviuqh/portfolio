@@ -17,8 +17,11 @@ export default function BlogPost() {
   if (!post) {
     return (
       <Layout>
-        <main className="flex-grow flex flex-col justify-center items-center w-full my-12 z-10 relative">
-          <p className="text-sm uppercase tracking-widest text-gray-400 mb-4">
+        <main
+          data-reveal
+          className="flex-grow flex flex-col justify-center items-center w-full my-10 sm:my-12 z-10 relative text-center"
+        >
+          <p className="text-xs sm:text-sm uppercase tracking-widest text-gray-400 mb-4">
             404 — Post not found
           </p>
           <Link to="/blog" className="hover-underline-animation text-accent text-sm uppercase tracking-widest">
@@ -32,10 +35,9 @@ export default function BlogPost() {
   return (
     <Layout>
       <main
-        className="flex-grow flex flex-col justify-center items-start w-full my-12 animate-fade-in z-10 relative"
-        style={{ animationDelay: '0.4s', opacity: 0 }}
+        className="flex-grow flex flex-col justify-center items-start w-full my-10 sm:my-12 md:my-16 z-10 relative"
       >
-        <div className="w-full max-w-[90vw] lg:max-w-[65vw] mx-auto">
+        <article data-reveal className="w-full lg:w-[65vw] max-w-[1100px] mx-auto min-w-0">
           <Link
             to="/blog"
             className="hover-underline-animation text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-accent transition-colors"
@@ -47,7 +49,7 @@ export default function BlogPost() {
             {formatDate(post.date)} · {post.tag}
           </p>
 
-          <h1 className="mt-2 font-serif italic text-[9vw] md:text-[6vw] lg:text-[4.5vw] leading-[0.95] tracking-tight text-foreground">
+          <h1 className="mt-3 font-serif italic text-[clamp(2.25rem,10vw,4.5rem)] md:text-[clamp(3rem,6vw,5rem)] lg:text-[clamp(3.5rem,4.5vw,5.5rem)] leading-[0.95] tracking-tight text-foreground break-words">
             {post.title}
             <span className="text-accent">.</span>
           </h1>
@@ -61,7 +63,7 @@ export default function BlogPost() {
             here or loaded from markdown/a CMS. The layout stays true to the site's broadsheet
             system: hairline rules, a serif display headline, and generous, quiet line spacing.
           </p>
-        </div>
+        </article>
       </main>
     </Layout>
   )
