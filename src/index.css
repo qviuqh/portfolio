@@ -591,7 +591,6 @@ body::-webkit-scrollbar {
 
   .graduation-ticket-portrait {
     min-height: 360px;
-    grid-row: 1;
   }
 
   .graduation-ticket-copy {
@@ -609,6 +608,48 @@ body::-webkit-scrollbar {
 
   .graduation-campus-info {
     min-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .graduation-ticket-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .graduation-ticket-copy {
+    display: contents;
+    transform: none;
+  }
+
+  .graduation-ticket-copy h2 {
+    grid-row: 1;
+    margin: 0;
+    padding: 32px 28px 0;
+  }
+
+  .graduation-ticket-portrait {
+    display: flex;
+    grid-row: 2;
+    justify-content: center;
+    min-height: 300px;
+    overflow: visible;
+    padding-top: 20px;
+  }
+
+  .graduation-ticket-portrait img {
+    position: static;
+    width: min(85%, 430px);
+    transform: none;
+  }
+
+  .graduation-message {
+    grid-row: 3;
+    margin: 24px 28px 30px;
+  }
+
+  .graduation-details {
+    grid-row: 4;
+    margin: 0 28px 32px;
   }
 }
 

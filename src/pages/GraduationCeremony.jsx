@@ -18,19 +18,16 @@ const DEFAULT_MAP_LOCATION = {
 }
 
 const MAP_LOCATIONS = {
-  'parking-lot-1': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 01', description: 'Khu vực đỗ xe được đánh dấu trên sơ đồ khuôn viên.' },
-  'parking-lot-2': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 02', description: 'Khu vực đỗ xe được đánh dấu trên sơ đồ khuôn viên.' },
-  'parking-lot-3': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 03', description: 'Khu vực đỗ xe được đánh dấu trên sơ đồ khuôn viên.' },
-  ...Object.fromEntries(
-    Array.from({ length: 7 }, (_, index) => [
-      `campus-object-${index + 1}`,
-      {
-        type: 'Tòa nhà',
-        title: `Khối công trình ${String(index + 1).padStart(2, '0')}`,
-        description: 'Khối công trình được đánh dấu trên sơ đồ khuôn viên NEU.',
-      },
-    ]),
-  ),
+  'parking-lot-1': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 01', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
+  'parking-lot-2': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 02', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
+  'parking-lot-3': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 03', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
+  'campus-object-1': { type: 'Tòa nhà', title: 'Tòa nhà thế kỷ', description: 'Lễ tốt nghiệp sẽ được tổ chức tại hội trường A2 (Nằm tại toàn nhà này)' },
+  'campus-object-2': { type: 'Tòa nhà', title: 'Giảng đường B', description: '' },
+  'campus-object-3': { type: 'Tòa nhà', title: 'Nhà 9', description: '' },
+  'campus-object-4': { type: 'Tòa nhà', title: 'Hội trường A', description: '' },
+  'campus-object-5': { type: 'Tòa nhà', title: 'Giảng đường D2', description: '' },
+  'campus-object-6': { type: 'Tòa nhà', title: 'Giảng đường D1', description: '' },
+  'campus-object-7': { type: 'Tòa nhà', title: 'Giảng đường C', description: '' },
 }
 
 export default function GraduationCeremony() {
@@ -88,7 +85,14 @@ export default function GraduationCeremony() {
   return (
     <Layout>
       <main className="graduation-main">
-        <section id="invitation" className="graduation-invitation">
+        <section id="invitation" className="graduation-invitation" aria-labelledby="invitation-title">
+          <header data-reveal className="graduation-invitation-heading">
+            <p>01 / Invitation</p>
+            <h1 id="invitation-title">
+              You&apos;re invited<br /><em>to celebrate.</em>
+            </h1>
+          </header>
+
           <div data-reveal className="graduation-ticket-wrap">
             <article className="graduation-ticket">
               <div className="graduation-ticket-inner">
@@ -133,7 +137,7 @@ export default function GraduationCeremony() {
           <header data-reveal className="graduation-campus-heading">
             <p>02 / Campus map</p>
             <h2 id="campus-map-title">
-              Find your way<br /><em>around NEU.</em>
+              Find the way<br /><em>around NEU.</em>
             </h2>
           </header>
 
@@ -164,13 +168,8 @@ export default function GraduationCeremony() {
                 <span className="graduation-campus-type">{activeLocation.type}</span>
                 <h3>{activeLocation.title}</h3>
                 <p>{activeLocation.description}</p>
-                <code>{activeLocation.id}</code>
               </div>
 
-              <div className="graduation-campus-legend" aria-label="Chú thích bản đồ">
-                <span><i aria-hidden="true" /> Tòa nhà</span>
-                <span><i className="is-parking" aria-hidden="true" /> Bãi đỗ xe</span>
-              </div>
             </aside>
           </div>
         </section>
