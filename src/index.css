@@ -247,6 +247,7 @@ body::-webkit-scrollbar {
   flex-direction: column;
   padding: clamp(30px, 5vw, 75px);
   transform: rotate(-1deg);
+  transform-origin: top left;
 }
 
 .graduation-ticket-meta {
@@ -305,7 +306,7 @@ body::-webkit-scrollbar {
 
 .graduation-details {
   display: grid;
-  grid-template-columns: .75fr .75fr 1.5fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;
   margin: 0;
   padding-top: 20px;
@@ -331,6 +332,7 @@ body::-webkit-scrollbar {
   font-size: clamp(1rem, 1.6vw, 1.35rem);
   font-style: italic;
   line-height: 1.25;
+  white-space: nowrap;
 }
 
 .graduation-ticket-portrait {

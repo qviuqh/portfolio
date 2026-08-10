@@ -4,10 +4,10 @@ import portrait from '../../assets/Qvinh-01-01.svg'
 import campusMap from '../../assets/NEU_campus-01.svg'
 
 const CEREMONY = {
-  school: 'National Economics University',
-  city: 'Hanoi, Vietnam',
-  date: 'Coming soon',
-  time: 'To be announced',
+  school: 'National Economics University, Hanoi.',
+  date: '22.08.2026',
+  time: '10 AM',
+  contact: '0838160636',
 }
 
 const DEFAULT_MAP_LOCATION = {
@@ -103,8 +103,8 @@ export default function GraduationCeremony() {
                     <em>Graduation Ceremony</em>
                   </h2>
                   <p className="graduation-message">
-                    Sau bốn năm của những bài học, thử thách và kỷ niệm, mình rất mong
-                    được gặp bạn để cùng đánh dấu cột mốc thật đặc biệt này.
+                    Hành trình thanh xuân của mình sẽ chẳng rực rỡ nếu thiếu vắng những người đồng hành tuyệt vời. 
+                    Cảm ơn vì đã ở đây, và sự có mặt của bạn sẽ làm cho mốc quan trọng này của mình trở nên đặc biệt hơn!
                   </p>
 
                   <dl className="graduation-details">
@@ -117,9 +117,13 @@ export default function GraduationCeremony() {
                       <dd>{CEREMONY.time}</dd>
                     </div>
                     <div>
+                      <dt>Contact</dt>
+                      <dd>{CEREMONY.contact}</dd>
+                    </div>
+                    <div>
                       <dt>Venue</dt>
                       <dd>
-                        {CEREMONY.school}<br />{CEREMONY.city}
+                        {CEREMONY.school}
                       </dd>
                     </div>
                   </dl>
