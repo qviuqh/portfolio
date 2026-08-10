@@ -485,31 +485,21 @@ body::-webkit-scrollbar {
   justify-content: space-between;
   padding: clamp(26px, 3vw, 38px);
   overflow: hidden;
-  border: 1px solid var(--grad-ink);
-  background: #e3dfd4;
-  transition: background-color 220ms ease, color 220ms ease;
+  border: none;
+  background: transparent;
 }
 
 .graduation-campus-info::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 5px;
-  background: var(--grad-orange);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
+  display: none;
 }
 
 .graduation-campus-info[data-active='true'] {
-  background: var(--grad-ink);
-  color: #f3efe6;
+  background: transparent;
+  color: inherit;
 }
 
 .graduation-campus-info[data-active='true']::before {
-  transform: scaleX(1);
+  transform: none;
 }
 
 .graduation-campus-type {
