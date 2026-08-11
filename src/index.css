@@ -178,6 +178,353 @@ body::-webkit-scrollbar {
   padding: clamp(70px, 9vw, 130px) 0 clamp(90px, 11vw, 160px);
 }
 
+/* Graduation RSVP */
+.graduation-rsvp {
+  max-width: 1280px;
+  margin: clamp(100px, 15vw, 190px) auto 0;
+}
+
+.graduation-rsvp-heading {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: start;
+  margin-bottom: clamp(35px, 5vw, 72px);
+}
+
+.graduation-rsvp-heading > p {
+  margin: 11px 0 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.graduation-rsvp-heading > p::before {
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  margin: 0 8px 3px 0;
+  background: var(--grad-orange);
+  content: '';
+}
+
+.graduation-rsvp-heading h2 {
+  margin: 0;
+  font-size: clamp(52px, 8.4vw, 120px);
+  font-weight: 800;
+  letter-spacing: -.075em;
+  line-height: .82;
+}
+
+.graduation-rsvp-heading em {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  color: var(--grad-orange);
+}
+
+.graduation-rsvp-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.morph-surface {
+  overflow: hidden;
+  transition: box-shadow 260ms ease, transform 260ms ease;
+}
+
+.graduation-rsvp-surface {
+  width: min(100%, 640px);
+  background: #f5f2ea;
+  border: 1px solid var(--grad-ink);
+  box-shadow: 6px 6px 0 var(--grad-ink);
+}
+
+.graduation-rsvp-surface[data-expanded='true'] {
+  box-shadow: 9px 9px 0 var(--grad-ink);
+}
+
+.graduation-rsvp-collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 82px;
+  padding: 16px 18px 16px 20px;
+}
+
+.graduation-rsvp-collapsed > div {
+  position: relative;
+  padding-left: 17px;
+}
+
+.graduation-rsvp-status {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--grad-orange);
+}
+
+.graduation-rsvp-collapsed p,
+.graduation-rsvp-collapsed small {
+  display: block;
+  margin: 0;
+}
+
+.graduation-rsvp-collapsed p {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.graduation-rsvp-collapsed small {
+  margin-top: 3px;
+  color: #64635e;
+  font-size: 11px;
+}
+
+.graduation-rsvp-open,
+.graduation-rsvp-actions button {
+  border: 0;
+  border-radius: 0;
+  background: var(--grad-ink);
+  color: #f5f2ea;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.graduation-rsvp-open {
+  flex: 0 0 auto;
+  padding: 12px 15px;
+}
+
+.graduation-rsvp-open:hover,
+.graduation-rsvp-actions button:hover {
+  background: var(--grad-orange);
+}
+
+.graduation-rsvp-open:focus-visible,
+.graduation-rsvp-actions button:focus-visible,
+.graduation-rsvp-close:focus-visible {
+  outline: 2px solid var(--grad-orange);
+  outline-offset: 3px;
+}
+
+.graduation-rsvp-form {
+  display: grid;
+  gap: 20px;
+  padding: clamp(22px, 4vw, 38px);
+}
+
+.graduation-rsvp-form-heading,
+.graduation-rsvp-actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.graduation-rsvp-form-heading span {
+  color: var(--grad-orange);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.graduation-rsvp-form-heading h3 {
+  margin: 5px 0 0;
+  font-size: clamp(25px, 3vw, 34px);
+  letter-spacing: -.055em;
+  line-height: .95;
+}
+
+.graduation-rsvp-close {
+  width: 29px;
+  height: 29px;
+  border: 1px solid var(--grad-ink);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--grad-ink);
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 22px;
+}
+
+.graduation-rsvp-form > label:not(.graduation-rsvp-check) {
+  display: grid;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.graduation-rsvp-form label sup,
+.graduation-rsvp-actions sup {
+  color: var(--grad-orange);
+  font-size: inherit;
+}
+
+.graduation-rsvp-form label > span {
+  color: #77756f;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.graduation-rsvp-form input[type='text'],
+.graduation-rsvp-form input[type='email'],
+.graduation-rsvp-form textarea {
+  width: 100%;
+  border: 1px solid #9b9991;
+  border-radius: 0;
+  background: transparent;
+  color: var(--grad-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.graduation-rsvp-form input[type='text'],
+.graduation-rsvp-form input[type='email'] {
+  height: 42px;
+  padding: 0 12px;
+}
+
+.graduation-rsvp-form textarea {
+  resize: vertical;
+  min-height: 88px;
+  padding: 11px 12px;
+}
+
+.graduation-rsvp-form input::placeholder,
+.graduation-rsvp-form textarea::placeholder {
+  color: #99968e;
+}
+
+.graduation-rsvp-form input[type='text']:focus,
+.graduation-rsvp-form textarea:focus {
+  border-color: var(--grad-ink);
+  box-shadow: 3px 3px 0 var(--grad-orange);
+}
+
+.graduation-rsvp-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.graduation-rsvp-check input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.graduation-rsvp-check > span {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--grad-ink);
+  background: transparent;
+}
+
+.graduation-rsvp-check input:checked + span {
+  background: var(--grad-orange);
+}
+
+.graduation-rsvp-check input:checked + span::after {
+  width: 8px;
+  height: 4px;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  content: '';
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.graduation-rsvp-check input:focus-visible + span {
+  outline: 2px solid var(--grad-orange);
+  outline-offset: 3px;
+}
+
+.graduation-rsvp-actions {
+  padding-top: 2px;
+}
+
+.graduation-rsvp-actions p {
+  margin: 0;
+  color: #77756f;
+  font-size: 10px;
+}
+
+.graduation-rsvp-actions button {
+  padding: 13px 16px;
+}
+
+.graduation-rsvp-actions button span {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 14px;
+  line-height: 0;
+}
+
+@media (max-width: 767px) {
+  .graduation-rsvp {
+    margin-top: 100px;
+  }
+
+  .graduation-rsvp-heading {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .graduation-rsvp-heading > p {
+    margin: 0;
+  }
+
+  .graduation-rsvp-wrap {
+    justify-content: stretch;
+  }
+
+  .graduation-rsvp-surface {
+    width: 100%;
+    box-shadow: 4px 4px 0 var(--grad-ink);
+  }
+
+  .graduation-rsvp-collapsed {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .graduation-rsvp-open {
+    padding: 11px 10px;
+  }
+
+  .graduation-rsvp-form {
+    gap: 18px;
+    padding: 22px 18px;
+  }
+
+  .graduation-rsvp-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
 .graduation-invitation {
   width: 100%;
 }
