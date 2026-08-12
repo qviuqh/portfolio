@@ -287,7 +287,7 @@ export default function GraduationCeremony() {
 
                   <div className="graduation-rsvp-actions">
                     <p><sup>*</sup> Trường bắt buộc</p>
-                    <button type="submit">Gửi xác nhận <span aria-hidden="true">↗</span></button>
+                    <button type="submit">Gửi xác nhận</button>
                   </div>
                 </form>
               )}
