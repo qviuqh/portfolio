@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Layout from '../components/Layout.jsx'
 import { MorphSurface } from '../components/ui/MorphSurface.jsx'
+import { useGraduationRsvp } from '../hooks/useGraduationRsvp.js'
 import portrait from '../../assets/Qvinh-01-01.svg'
 import campusMap from '../../assets/NEU_campus-01.svg'
 
@@ -35,10 +36,20 @@ export default function GraduationCeremony() {
   const mapObjectRef = useRef(null)
   const [mapDocument, setMapDocument] = useState(null)
   const [activeLocation, setActiveLocation] = useState(DEFAULT_MAP_LOCATION)
-  const [guestName, setGuestName] = useState('')
-  const [isConfirmed, setIsConfirmed] = useState(false)
-  const [attendanceConfirmed, setAttendanceConfirmed] = useState(false)
-  const [email, setEmail] = useState('')
+  const {
+    formData,
+    response,
+    loading: rsvpLoading,
+    submitting,
+    error: rsvpError,
+    hasResponse,
+    isEditing,
+    setField,
+    submit,
+    startEditing,
+    cancelEditing,
+    retry,
+  } = useGraduationRsvp()
 
   useEffect(() => {
     const previousTitle = document.title
@@ -87,12 +98,9 @@ export default function GraduationCeremony() {
     setMapDocument(mapObjectRef.current?.contentDocument ?? null)
   }
 
-  const handleRsvpSubmit = (event, collapse) => {
+  const handleRsvpSubmit = (event) => {
     event.preventDefault()
-    setGuestName((name) => name.trim())
-    setEmail((value) => value.trim())
-    setIsConfirmed(true)
-    collapse()
+    submit()
   }
 
   return (
@@ -206,26 +214,82 @@ export default function GraduationCeremony() {
           <div data-reveal className="graduation-rsvp-wrap">
             <MorphSurface
               className="graduation-rsvp-surface"
+              isExpanded={isEditing}
+              onExpandedChange={(nextValue) => {
+                if (nextValue) startEditing()
+                else cancelEditing()
+              }}
               collapsed={({ expand }) => (
-                <div className="graduation-rsvp-collapsed">
-                  <div>
-                    <span className="graduation-rsvp-status" aria-hidden="true" />
-                    <p>{isConfirmed ? 'Đã xác nhận tham gia' : 'Bạn sẽ tham gia chứ?'}</p>
-                    <small>{isConfirmed ? `Hẹn gặp bạn, ${guestName}.` : ''}</small>
-                  </div>
-                  <button type="button" onClick={expand} className="graduation-rsvp-open">
-                    {isConfirmed ? 'Chỉnh sửa' : 'Xác nhận'}
-                  </button>
+                <div
+                  className={`graduation-rsvp-collapsed${hasResponse ? ' graduation-rsvp-collapsed--summary' : ''}`}
+                  aria-live="polite"
+                  aria-busy={rsvpLoading}
+                >
+                  {rsvpLoading && (
+                    <div>
+                      <span className="graduation-rsvp-status graduation-rsvp-status--loading" aria-hidden="true" />
+                      <p>Đang tải thông tin xác nhận...</p>
+                      <small>Vui lòng chờ trong giây lát.</small>
+                    </div>
+                  )}
+
+                  {!rsvpLoading && rsvpError && ['auth', 'load'].includes(rsvpError.type) && (
+                    <>
+                      <div>
+                        <span className="graduation-rsvp-status graduation-rsvp-status--error" aria-hidden="true" />
+                        <p>{rsvpError.message}</p>
+                        <small>{rsvpError.type === 'load' ? 'Bạn có thể thử tải lại thông tin.' : ''}</small>
+                      </div>
+                      <button type="button" onClick={retry} className="graduation-rsvp-open">
+                        Thử lại
+                      </button>
+                    </>
+                  )}
+
+                  {!rsvpLoading && !rsvpError && hasResponse && (
+                    <>
+                      <div className="graduation-rsvp-summary">
+                        <span className="graduation-rsvp-status" aria-hidden="true" />
+                        <p>Bạn đã xác nhận</p>
+                      </div>
+                      <button type="button" onClick={expand} className="graduation-rsvp-open">
+                        Chỉnh sửa
+                      </button>
+                    </>
+                  )}
+
+                  {!rsvpLoading && !rsvpError && !hasResponse && (
+                    <>
+                      <div>
+                        <span className="graduation-rsvp-status" aria-hidden="true" />
+                        <p>Bạn sẽ tham gia chứ?</p>
+                      </div>
+                      <button type="button" onClick={expand} className="graduation-rsvp-open">
+                        Xác nhận
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
               expanded={({ collapse }) => (
-                <form className="graduation-rsvp-form" onSubmit={(event) => handleRsvpSubmit(event, collapse)}>
+                <form
+                  className="graduation-rsvp-form"
+                  onSubmit={handleRsvpSubmit}
+                  noValidate
+                  aria-busy={submitting}
+                >
                   <div className="graduation-rsvp-form-heading">
                     <div>
                       <span>RSVP</span>
-                      <h3>Xác nhận tham gia</h3>
+                      <h3>{hasResponse ? 'Chỉnh sửa xác nhận' : 'Xác nhận tham gia'}</h3>
                     </div>
-                    <button type="button" onClick={collapse} className="graduation-rsvp-close" aria-label="Đóng biểu mẫu xác nhận">
+                    <button
+                      type="button"
+                      onClick={collapse}
+                      className="graduation-rsvp-close"
+                      aria-label="Đóng biểu mẫu xác nhận"
+                      disabled={submitting}
+                    >
                       ×
                     </button>
                   </div>
@@ -237,16 +301,25 @@ export default function GraduationCeremony() {
                       name="name"
                       type="text"
                       autoComplete="name"
-                      value={guestName}
-                      onChange={(event) => setGuestName(event.target.value)}
+                      value={formData.fullName}
+                      onChange={(event) => setField('fullName', event.target.value)}
                       placeholder="Nhập tên của bạn"
+                      aria-invalid={rsvpError?.field === 'fullName'}
+                      aria-describedby={rsvpError?.field === 'fullName' ? 'graduation-rsvp-error' : undefined}
                       required
                     />
                   </label>
 
                   <label htmlFor="guest-message">
                     Lời nhắn gửi <span>(không bắt buộc)</span>
-                    <textarea id="guest-message" name="message" rows="3" placeholder="Vài lời nhắn gửi tới Vinh..." />
+                    <textarea
+                      id="guest-message"
+                      name="message"
+                      rows="3"
+                      value={formData.message}
+                      onChange={(event) => setField('message', event.target.value)}
+                      placeholder="Vài lời nhắn gửi tới Vinh..."
+                    />
                   </label>
 
                   <label className="graduation-rsvp-check" htmlFor="attendance-confirmed">
@@ -254,21 +327,14 @@ export default function GraduationCeremony() {
                       id="attendance-confirmed"
                       name="attending"
                       type="checkbox"
-                      checked={attendanceConfirmed}
-                      onChange={(event) => {
-                        const checked = event.target.checked
-                        setAttendanceConfirmed(checked)
-                        if (!checked) {
-                          setEmail('')
-                        }
-                      }}
-                      required
+                      checked={formData.attending}
+                      onChange={(event) => setField('attending', event.target.checked)}
                     />
                     <span aria-hidden="true" />
                     <strong>Mình sẽ tham gia buổi lễ</strong>
                   </label>
 
-                  {attendanceConfirmed && (
+                  {formData.attending && (
                     <label htmlFor="guest-email">
                       Email nhận thông báo <sup>*</sup>
                       <span>(Nhập email để nhận thông báo khi có thay đổi)</span>
@@ -277,17 +343,27 @@ export default function GraduationCeremony() {
                         name="email"
                         type="email"
                         autoComplete="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        value={formData.email}
+                        onChange={(event) => setField('email', event.target.value)}
                         placeholder="Nhập email của bạn"
+                        aria-invalid={rsvpError?.field === 'email'}
+                        aria-describedby={rsvpError?.field === 'email' ? 'graduation-rsvp-error' : undefined}
                         required
                       />
                     </label>
                   )}
 
+                  {rsvpError && ['validation', 'save'].includes(rsvpError.type) && (
+                    <p id="graduation-rsvp-error" className="graduation-rsvp-error" role="alert">
+                      {rsvpError.message}
+                    </p>
+                  )}
+
                   <div className="graduation-rsvp-actions">
                     <p><sup>*</sup> Trường bắt buộc</p>
-                    <button type="submit">Gửi xác nhận</button>
+                    <button type="submit" disabled={submitting}>
+                      {submitting ? 'Đang gửi...' : 'Gửi xác nhận'}
+                    </button>
                   </div>
                 </form>
               )}

@@ -200,12 +200,9 @@ body::-webkit-scrollbar {
 }
 
 .graduation-rsvp-heading > p::before {
-  display: inline-block;
-  width: 20px;
-  height: 1px;
-  margin: 0 8px 3px 0;
-  background: var(--grad-orange);
-  content: '';
+  margin-right: 10px;
+  color: var(--grad-orange);
+  content: '✦';
 }
 
 .graduation-rsvp-heading h2 {
@@ -267,6 +264,21 @@ body::-webkit-scrollbar {
   background: var(--grad-orange);
 }
 
+.graduation-rsvp-status--loading {
+  animation: graduation-rsvp-status-pulse 1.1s ease-in-out infinite alternate;
+}
+
+.graduation-rsvp-status--error {
+  background: #a53a2a;
+}
+
+@keyframes graduation-rsvp-status-pulse {
+  to {
+    opacity: .35;
+    transform: scale(.75);
+  }
+}
+
 .graduation-rsvp-collapsed p,
 .graduation-rsvp-collapsed small {
   display: block;
@@ -282,6 +294,43 @@ body::-webkit-scrollbar {
   margin-top: 3px;
   color: #64635e;
   font-size: 11px;
+}
+
+.graduation-rsvp-collapsed--summary {
+  align-items: flex-start;
+}
+
+.graduation-rsvp-summary {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.graduation-rsvp-summary dl {
+  display: grid;
+  gap: 6px;
+  margin: 13px 0 0;
+}
+
+.graduation-rsvp-summary dl > div {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.graduation-rsvp-summary dt {
+  color: #77756f;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.graduation-rsvp-summary dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .graduation-rsvp-open,
@@ -309,6 +358,17 @@ body::-webkit-scrollbar {
   background: var(--grad-orange);
 }
 
+.graduation-rsvp-open:disabled,
+.graduation-rsvp-actions button:disabled,
+.graduation-rsvp-close:disabled {
+  cursor: wait;
+  opacity: .55;
+}
+
+.graduation-rsvp-actions button:disabled:hover {
+  background: var(--grad-ink);
+}
+
 .graduation-rsvp-open:focus-visible,
 .graduation-rsvp-actions button:focus-visible,
 .graduation-rsvp-close:focus-visible {
@@ -320,6 +380,58 @@ body::-webkit-scrollbar {
   display: grid;
   gap: 20px;
   padding: clamp(22px, 4vw, 38px);
+  animation: graduation-rsvp-form-enter 520ms cubic-bezier(.22, 1, .36, 1) both;
+  transform-origin: top center;
+}
+
+.graduation-rsvp-form > * {
+  animation: graduation-rsvp-form-item-enter 360ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.graduation-rsvp-form > :nth-child(1) {
+  animation-delay: 80ms;
+}
+
+.graduation-rsvp-form > :nth-child(2) {
+  animation-delay: 130ms;
+}
+
+.graduation-rsvp-form > :nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.graduation-rsvp-form > :nth-child(4) {
+  animation-delay: 230ms;
+}
+
+.graduation-rsvp-form > :nth-child(5) {
+  animation-delay: 280ms;
+}
+
+@keyframes graduation-rsvp-form-enter {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: .35;
+    transform: translateY(-14px) scaleY(.96);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes graduation-rsvp-form-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .graduation-rsvp-form-heading,
@@ -412,9 +524,14 @@ body::-webkit-scrollbar {
 }
 
 .graduation-rsvp-form input[type='text']:focus,
+.graduation-rsvp-form input[type='email']:focus,
 .graduation-rsvp-form textarea:focus {
   border-color: var(--grad-ink);
   box-shadow: 3px 3px 0 var(--grad-orange);
+}
+
+.graduation-rsvp-form input[aria-invalid='true'] {
+  border-color: #a53a2a;
 }
 
 .graduation-rsvp-check {
@@ -464,6 +581,17 @@ body::-webkit-scrollbar {
   padding-top: 2px;
 }
 
+.graduation-rsvp-error {
+  margin: 0;
+  border-left: 3px solid #a53a2a;
+  padding: 9px 11px;
+  background: rgb(165 58 42 / 8%);
+  color: #792b20;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .graduation-rsvp-actions p {
   margin: 0;
   color: #77756f;
@@ -507,6 +635,10 @@ body::-webkit-scrollbar {
   .graduation-rsvp-collapsed {
     align-items: flex-start;
     padding: 16px;
+  }
+
+  .graduation-rsvp-summary dl > div {
+    grid-template-columns: 64px minmax(0, 1fr);
   }
 
   .graduation-rsvp-open {
@@ -951,8 +1083,19 @@ body::-webkit-scrollbar {
 }
 
 @media (max-width: 640px) {
+  .graduation-ticket-wrap,
+  .graduation-ticket {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .graduation-ticket-inner {
     grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .graduation-ticket-inner > * {
+    min-width: 0;
   }
 
   .graduation-ticket-copy {
@@ -964,6 +1107,17 @@ body::-webkit-scrollbar {
     grid-row: 1;
     margin: 0;
     padding: 32px 28px 0;
+    font-size: clamp(1.75rem, 9vw, 2.45rem);
+  }
+
+  .graduation-name,
+  .graduation-ticket-copy h2 em {
+    white-space: normal;
+  }
+
+  .graduation-ticket-copy h2 em {
+    width: auto;
+    margin-left: 0;
   }
 
   .graduation-ticket-portrait {
@@ -1019,12 +1173,17 @@ body::-webkit-scrollbar {
   }
 
   .graduation-details {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .graduation-details div:last-child {
     grid-column: 1 / -1;
     margin-top: 8px;
+  }
+
+  .graduation-details dd {
+    font-size: clamp(.8rem, 4vw, 1rem);
   }
 
   .graduation-portrait-name {
@@ -1056,5 +1215,11 @@ body::-webkit-scrollbar {
   .graduation-campus-info,
   .graduation-campus-info::before {
     transition: none;
+  }
+
+  .graduation-rsvp-form,
+  .graduation-rsvp-form > *,
+  .graduation-rsvp-status--loading {
+    animation: none;
   }
 }
