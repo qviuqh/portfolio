@@ -91,7 +91,7 @@ export function useGraduationRsvp() {
       if (initializationId !== initializationIdRef.current) return
       setResponse(savedResponse)
       setFormData(responseToFormData(savedResponse))
-      setIsEditing(!savedResponse)
+      setIsEditing(false)
     } catch (loadError) {
       reportTechnicalError('load', loadError)
       if (initializationId === initializationIdRef.current) {
