@@ -8,7 +8,7 @@ import campusMap from '../../assets/NEU_campus-01.svg'
 const CEREMONY = {
   school: 'National Economics University, Hanoi.',
   date: '22.08.2026',
-  time: '10 AM',
+  time: '4-5 PM',
   contact: '0838160636',
 }
 
@@ -20,16 +20,27 @@ const DEFAULT_MAP_LOCATION = {
 }
 
 const MAP_LOCATIONS = {
-  'parking-lot-1': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 01', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
-  'parking-lot-2': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 02', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
-  'parking-lot-3': { type: 'Bãi đỗ xe', title: 'Bãi đỗ xe 03', description: 'Hãy chuẩn bị trước 3k tiền lẻ cho phí giữ xe nhé.' },
-  'campus-object-1': { type: 'Tòa nhà', title: 'Tòa nhà thế kỷ', description: 'Lễ tốt nghiệp sẽ được tổ chức tại hội trường A2 (Nằm tại toàn nhà này)' },
-  'campus-object-2': { type: 'Tòa nhà', title: 'Giảng đường B', description: '' },
-  'campus-object-3': { type: 'Tòa nhà', title: 'Nhà 9', description: '' },
-  'campus-object-4': { type: 'Tòa nhà', title: 'Hội trường A', description: '' },
-  'campus-object-5': { type: 'Tòa nhà', title: 'Giảng đường D2', description: '' },
-  'campus-object-6': { type: 'Tòa nhà', title: 'Giảng đường D1', description: '' },
-  'campus-object-7': { type: 'Tòa nhà', title: 'Giảng đường C', description: '' },
+  'parking-lot-1': {
+    type: 'Bãi đỗ xe',
+    title: 'Bãi đỗ xe 01',
+    description: 'Mọi người đi xe máy có thể gửi xe trong khuôn viên trường theo hướng dẫn của bảo vệ hoặc nhân viên tại cổng. Sau khi gửi xe, hãy di chuyển về phía Tòa nhà A2 – Tòa nhà Thế kỷ để tới Hội trường A2.\n- Phí gửi xe: 3.000đ/lượt\n- Nên chuẩn bị sẵn tiền mặt để việc gửi xe nhanh và thuận tiện hơn.',
+  },
+  'parking-lot-2': { 
+    type: 'Bãi đỗ xe', 
+    title: 'Bãi đỗ xe 02', 
+    description: 'Mọi người đi xe máy có thể gửi xe trong khuôn viên trường theo hướng dẫn của bảo vệ hoặc nhân viên tại cổng. Sau khi gửi xe, hãy di chuyển về phía Tòa nhà A2 – Tòa nhà Thế kỷ để tới Hội trường A2.\n- Phí gửi xe: 3.000đ/lượt\n- Nên chuẩn bị sẵn tiền mặt để việc gửi xe nhanh và thuận tiện hơn.' 
+  },
+  'parking-lot-3': { 
+    type: 'Bãi đỗ xe', 
+    title: 'Bãi đỗ xe 03', 
+    description: 'Mọi người đi xe máy có thể gửi xe trong khuôn viên trường theo hướng dẫn của bảo vệ hoặc nhân viên tại cổng. Sau khi gửi xe, hãy di chuyển về phía Tòa nhà A2 – Tòa nhà Thế kỷ để tới Hội trường A2.\n- Phí gửi xe: 3.000đ/lượt\n- Nên chuẩn bị sẵn tiền mặt để việc gửi xe nhanh và thuận tiện hơn.' },
+  'campus-object-1': { type: 'Tòa nhà', title: 'Tòa nhà thế kỷ', description: 'Một trong những công trình biểu tượng và hiện đại nhất của Đại học Kinh tế Quốc dân. Tòa nhà nổi bật với kiến trúc kính xanh và không gian rộng lớn. Hội trường A2 – nơi diễn ra lễ tốt nghiệp – nằm tại tầng B1 của tòa nhà này. Đây là địa điểm quan trọng nhất mọi người cần tìm khi đến tham dự buổi lễ.' },
+  'campus-object-2': { type: 'Tòa nhà', title: 'Giảng đường B', description: 'Một trong những khu giảng đường quen thuộc thuộc cụm giảng đường truyền thống của NEU. Với vị trí nằm trong khuôn viên chính, Giảng đường B có thể được sử dụng như một điểm mốc để định hướng khi di chuyển giữa các khu vực trong trường.' },
+  'campus-object-3': { type: 'Tòa nhà', title: 'Nhà 9', description: 'Một trong những công trình nằm trong khu vực lâu đời của Đại học Kinh tế Quốc dân. Nhà 9 nằm gần khu giảng đường truyền thống và Hội trường A, vì vậy có thể được sử dụng như một điểm tham chiếu khi tìm đường trong campus.' },
+  'campus-object-4': { type: 'Tòa nhà', title: 'Hội trường A', description: 'Hội trường nằm trong khu giảng đường truyền thống của NEU và là một địa điểm khá dễ gây nhầm với Hội trường A2. Lưu ý: đây không phải địa điểm tổ chức lễ tốt nghiệp. Nếu mọi người đang ở Hội trường A, hãy tìm đường về phía Tòa nhà A2 – Tòa nhà Thế kỷ.' },
+  'campus-object-5': { type: 'Tòa nhà', title: 'Giảng đường D2', description: 'Nằm gần Giảng đường D1 và thuộc khu giảng đường truyền thống của trường. D1 và D2 thường được sử dụng như hai điểm mốc liền kề khi di chuyển trong khu vực campus cũ. Từ đây, mọi người có thể tiếp tục di chuyển về phía Tòa nhà A2 để tới địa điểm tổ chức lễ.' },
+  'campus-object-6': { type: 'Tòa nhà', title: 'Giảng đường D1', description: 'Một phần của cụm giảng đường lâu đời của NEU. D1 nằm gần các giảng đường B, C và D2, tạo thành một cụm công trình quen thuộc trong khuôn viên trường. Đây là một landmark hữu ích nếu mọi người muốn xác định vị trí của mình trên Campus Map.' },
+  'campus-object-7': { type: 'Tòa nhà', title: 'Giảng đường C', description: 'Thuộc khu giảng đường truyền thống của Đại học Kinh tế Quốc dân và nằm gần các giảng đường B, D1 và D2. Đây là một trong những khu vực mang nét đặc trưng của campus cũ và cũng là điểm dễ nhận biết khi đi bộ quanh trường.' },
 }
 
 export default function GraduationCeremony() {
@@ -101,6 +112,19 @@ export default function GraduationCeremony() {
   const handleRsvpSubmit = (event) => {
     event.preventDefault()
     submit()
+  }
+
+  const renderDescription = (description) => {
+    if (typeof description !== 'string') return description
+
+    const lines = description.split(/\n+/).filter(Boolean)
+
+    return lines.map((line, index) => (
+      <span key={`${line}-${index}`}>
+        {line}
+        {index < lines.length - 1 && <br />}
+      </span>
+    ))
   }
 
   return (
@@ -196,7 +220,7 @@ export default function GraduationCeremony() {
               <div>
                 <span className="graduation-campus-type">{activeLocation.type}</span>
                 <h3>{activeLocation.title}</h3>
-                <p>{activeLocation.description}</p>
+                <p>{renderDescription(activeLocation.description)}</p>
               </div>
 
             </aside>
