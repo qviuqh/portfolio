@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { getOrCreateAnonymousUser } from '../services/authService.js'
+import { ensureAnonymousSession } from '../services/authService.js'
 import {
   getGraduationResponse,
   saveGraduationResponse,
@@ -51,7 +51,6 @@ function validate(formData) {
 }
 
 export function useGraduationRsvp() {
-  const [user, setUser] = useState(null)
   const [response, setResponse] = useState(null)
   const [formData, setFormData] = useState(INITIAL_FORM_DATA)
   const [loading, setLoading] = useState(true)
@@ -66,10 +65,10 @@ export function useGraduationRsvp() {
     setLoading(true)
     setError(null)
 
-    let currentUser
+    let session
 
     try {
-      currentUser = await getOrCreateAnonymousUser()
+      session = await ensureAnonymousSession()
     } catch (authError) {
       reportTechnicalError('auth', authError)
       if (initializationId === initializationIdRef.current) {
@@ -83,10 +82,9 @@ export function useGraduationRsvp() {
     }
 
     if (initializationId !== initializationIdRef.current) return
-    setUser(currentUser)
 
     try {
-      const savedResponse = await getGraduationResponse(currentUser.id)
+      const savedResponse = await getGraduationResponse(session.user.id)
 
       if (initializationId !== initializationIdRef.current) return
       setResponse(savedResponse)
@@ -122,7 +120,7 @@ export function useGraduationRsvp() {
   }, [])
 
   const submit = useCallback(async () => {
-    if (submittingRef.current || !user) return false
+    if (submittingRef.current) return false
 
     const validationError = validate(formData)
     if (validationError) {
@@ -135,8 +133,9 @@ export function useGraduationRsvp() {
     setError(null)
 
     try {
+      const session = await ensureAnonymousSession()
       const savedResponse = await saveGraduationResponse({
-        userId: user.id,
+        userId: session.user.id,
         ...formData,
       })
 
@@ -155,7 +154,7 @@ export function useGraduationRsvp() {
       submittingRef.current = false
       setSubmitting(false)
     }
-  }, [formData, user])
+  }, [formData])
 
   const startEditing = useCallback(() => {
     if (response) setFormData(responseToFormData(response))

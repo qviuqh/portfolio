@@ -1,28 +1,32 @@
 import { getSupabaseClient } from '../lib/supabase.js'
 
-let initializationPromise = null
+let sessionPromise = null
 
-async function initializeAnonymousUser() {
+async function initializeAnonymousSession() {
   const client = getSupabaseClient()
   const { data: sessionData, error: sessionError } = await client.auth.getSession()
 
   if (sessionError) throw sessionError
-  if (sessionData.session?.user) return sessionData.session.user
+  if (sessionData.session?.access_token && sessionData.session.user) {
+    return sessionData.session
+  }
 
   const { data, error } = await client.auth.signInAnonymously()
 
   if (error) throw error
-  if (!data.user) throw new Error('Anonymous sign-in did not return a user')
+  if (!data.session?.access_token || !data.session.user) {
+    throw new Error('Anonymous sign-in did not return a valid session')
+  }
 
-  return data.user
+  return data.session
 }
 
-export function getOrCreateAnonymousUser() {
-  if (!initializationPromise) {
-    initializationPromise = initializeAnonymousUser().finally(() => {
-      initializationPromise = null
+export function ensureAnonymousSession() {
+  if (!sessionPromise) {
+    sessionPromise = initializeAnonymousSession().finally(() => {
+      sessionPromise = null
     })
   }
 
-  return initializationPromise
+  return sessionPromise
 }
